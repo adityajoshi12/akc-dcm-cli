@@ -3,7 +3,7 @@ package glossary
 // Default output
 const DefaultOutputPath = ".dcm/output"
 
-//Program name
+// Program name
 const ProgramName = "dcm"
 
 // Regex cert name
