@@ -9,7 +9,7 @@ import (
 	"runtime"
 )
 
-//NewVersionCommand creates a new "dcm version" command
+// NewVersionCommand creates a new "dcm version" command
 func NewVersionCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "version",
@@ -28,7 +28,7 @@ func NewVersionCommand() *cobra.Command {
 	return cmd
 }
 
-//GetMetaInfo returns version information for the fabric cmd.
+// GetMetaInfo returns version information for the fabric cmd.
 func GetMetaInfo() string {
 	return fmt.Sprintf("%s:\n Version: %s\n Commit SHA: %s\n Go Version: %s\n"+
 		" OS/Arch: %s\n",

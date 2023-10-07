@@ -30,8 +30,10 @@ func ParsePrivateKey(privateKeyPath string) (crypto.PrivateKey, error) {
 
 	var parsedKey interface{}
 	if parsedKey, err = x509.ParsePKCS1PrivateKey(privKeyBlock.Bytes); err != nil {
-		if parsedKey, err = x509.ParsePKCS8PrivateKey(privKeyBlock.Bytes); err != nil {
-			return nil, errors.WithMessage(err, "ParsePrivateKey - Unable to parse private key")
+		if parsedKey, err = x509.ParseECPrivateKey(privKeyBlock.Bytes); err != nil {
+			if parsedKey, err = x509.ParsePKCS8PrivateKey(privKeyBlock.Bytes); err != nil {
+				return nil, errors.WithMessage(err, "ParsePrivateKey - Unable to parse private key")
+			}
 		}
 	}
 

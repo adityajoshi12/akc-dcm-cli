@@ -1,0 +1,25 @@
+builds:
+ - id: dcm
+   main: ./cmd
+   binary: dcm
+   env:
+    - CGO_ENABLED=0
+    - PACKAGE=akc-dcm-cli
+   ldflags: "-X akc-dcm-cli/glossary/metadata.Version={{.Version}} -X akc-dcm-cli/glossary/metadata.CommitSHA={{.ShortCommit}}"
+   goos:
+    - darwin
+    - linux
+   goarch:
+    - amd64
+    - arm64
+    - arm
+   ignore:
+    - goos: windows
+      goarch: arm
+    - goos: darwin
+      goarch: arm
+
+archives:
+ - name_template: "{{ .ProjectName }}_{{ .Tag }}_{{ .Os }}_{{ .Arch }}"
+   wrap_in_directory: false
+   format: tar.gz
