@@ -37,6 +37,7 @@ func NewReNewCertificateCommand() *cobra.Command {
 	flags.StringVar(&c.PrivKeyOldCertPath, "old-private-key", "", "Path to private key of old certificate")
 	flags.IntVarP(&c.Day, "days", "d", 1, "Number date expire of new certificate")
 	flags.StringVarP(&c.OutputPath, "output", "o", ".dcm/output/renew-cert.pem", "Path to output file of new certificate")
+	flags.StringArrayVar(&c.CSRHosts, "csr", []string{}, "additional hosts")
 
 	return cmd
 }
@@ -49,6 +50,7 @@ type ReNewCommand struct {
 	PrivKeyOldCertPath string
 	Day                int
 	OutputPath         string
+	CSRHosts           []string
 }
 
 // Validate checks the required parameters for run
@@ -118,6 +120,9 @@ func (c *ReNewCommand) Run() error {
 		if ext.Id.Equal(glossary.FabricComment) {
 			oldCert.ExtraExtensions = append(oldCert.ExtraExtensions, ext)
 		}
+	}
+	for _, host := range c.CSRHosts {
+		oldCert.DNSNames = append(oldCert.DNSNames, host)
 	}
 
 	// generate new certificate
