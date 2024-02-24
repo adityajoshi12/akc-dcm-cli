@@ -5,6 +5,11 @@
 3. Locate the binary in the bin directory
 4. Add the binary to your PATH
 5. Execute dcm for more information
+
+Or
+```bash
+curl https://raw.githubusercontent.com/adityajoshi12/akc-dcm-cli/main/install.sh | bash
+```
 ## II. Commands Reference.
 ```shell
 dcm [command]
@@ -32,10 +37,10 @@ Flags:
 #
 Example command renew expire date of peer certificate:
 ```shell script
-dcm certificate renew  --parent-cert=../data/intermediate-ca/signcerts/ica-cert.pem 
---parent-private-key=../data/intermediate-ca/keystore/ica-key.pem 
---old-cert=../data/peer/output/peer-cert.pem 
---old-private-key=../data/peer/keystore/peer-key.pem 
+dcm certificate renew  --parent-cert=../data/intermediate-ca/signcerts/ica-cert.pem
+--parent-private-key=../data/intermediate-ca/keystore/ica-key.pem
+--old-cert=../data/peer/output/peer-cert.pem
+--old-private-key=../data/peer/keystore/peer-key.pem
 --output=../data/peer/output/renew-peer-cert.pem
 --days=365
 ```
