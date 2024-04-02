@@ -1,9 +1,9 @@
 package certificate
 
 import (
-	"akc-dcm-cli/commands/certificate/check"
-	"akc-dcm-cli/commands/certificate/inspect"
-	"akc-dcm-cli/commands/certificate/renew"
+	"github.com/adityajoshi12/akc-dcm-cli/commands/certificate/check"
+	"github.com/adityajoshi12/akc-dcm-cli/commands/certificate/inspect"
+	"github.com/adityajoshi12/akc-dcm-cli/commands/certificate/renew"
 	"github.com/spf13/cobra"
 )
 

@@ -1,4 +1,4 @@
-module akc-dcm-cli
+module github.com/adityajoshi12/akc-dcm-cli
 
 go 1.13
 

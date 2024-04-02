@@ -1,9 +1,9 @@
 package check
 
 import (
-	"akc-dcm-cli/commands/common"
-	"akc-dcm-cli/utilities"
 	"fmt"
+	"github.com/adityajoshi12/akc-dcm-cli/commands/common"
+	"github.com/adityajoshi12/akc-dcm-cli/utilities"
 	"github.com/fatih/color"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"

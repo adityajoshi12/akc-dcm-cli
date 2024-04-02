@@ -1,7 +1,6 @@
 package utilities
 
 import (
-	"akc-dcm-cli/glossary"
 	"bytes"
 	"crypto/dsa"
 	"crypto/ecdsa"
@@ -11,6 +10,7 @@ import (
 	"encoding/asn1"
 	"errors"
 	"fmt"
+	"github.com/adityajoshi12/akc-dcm-cli/glossary"
 	"math/big"
 	"net"
 	"time"

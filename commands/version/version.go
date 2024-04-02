@@ -1,10 +1,10 @@
 package version
 
 import (
-	"akc-dcm-cli/glossary"
-	"akc-dcm-cli/glossary/metadata"
 	"errors"
 	"fmt"
+	"github.com/adityajoshi12/akc-dcm-cli/glossary"
+	"github.com/adityajoshi12/akc-dcm-cli/glossary/metadata"
 	"github.com/spf13/cobra"
 	"runtime"
 )

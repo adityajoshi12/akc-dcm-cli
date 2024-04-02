@@ -1,8 +1,8 @@
 package utilities
 
 import (
-	"akc-dcm-cli/glossary"
 	"encoding/json"
+	"github.com/adityajoshi12/akc-dcm-cli/glossary"
 	"github.com/pkg/errors"
 	"io/ioutil"
 	"os"

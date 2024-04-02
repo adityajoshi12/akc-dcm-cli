@@ -1,7 +1,6 @@
 package utilities
 
 import (
-	"akc-dcm-cli/glossary/jsonCert"
 	"bytes"
 	"crypto"
 	"crypto/ecdsa"
@@ -10,6 +9,7 @@ import (
 	"crypto/x509"
 	"encoding/json"
 	"encoding/pem"
+	"github.com/adityajoshi12/akc-dcm-cli/glossary/jsonCert"
 	"github.com/pkg/errors"
 	"io/ioutil"
 	"path/filepath"
