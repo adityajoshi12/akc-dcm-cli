@@ -24,7 +24,8 @@ func (c *Command) ParseArgs() cobra.PositionalArgs {
 	return func(_ *cobra.Command, args []string) error {
 		for i, arg := range c.Args {
 			if len(args) < i+1 {
-				return nil
+				*arg = ""
+				continue
 			}
 
 			*arg = args[i]

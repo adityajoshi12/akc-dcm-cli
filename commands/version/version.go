@@ -3,10 +3,11 @@ package version
 import (
 	"errors"
 	"fmt"
+	"runtime"
+
 	"github.com/adityajoshi12/akc-dcm-cli/glossary"
 	"github.com/adityajoshi12/akc-dcm-cli/glossary/metadata"
 	"github.com/spf13/cobra"
-	"runtime"
 )
 
 // NewVersionCommand creates a new "dcm version" command
@@ -20,7 +21,7 @@ func NewVersionCommand() *cobra.Command {
 				return errors.New("trailing args detected")
 			}
 			cmd.SilenceUsage = true
-			fmt.Print(GetMetaInfo())
+			fmt.Fprint(cmd.OutOrStdout(), GetMetaInfo())
 			return nil
 		},
 	}
