@@ -1,4 +1,4 @@
-PROJECT_VERSION=1.1.3
+PROJECT_VERSION=1.1.9
 
 GO_CMD		?= go
 LINT_CMD	?= gobin -run github.com/golangci/golangci-lint/cmd/golangci-lint@v1.19.1
@@ -7,7 +7,7 @@ BIN_DIR := $(CURDIR)/bin
 CMD_DIR := $(CURDIR)/cmd
 
 PROJECT_NAME = akc-dcm-cli
-PKGNAME = $(PROJECT_NAME)
+PKGNAME = $(shell cat go.mod | grep "^module" | awk '{print $$2}')
 
 EXTRA_VERSION ?= $(shell git rev-parse --short HEAD)
 

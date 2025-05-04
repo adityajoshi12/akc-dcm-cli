@@ -6,7 +6,7 @@ on:
   tags:
    - 'v*.*.*'
 env:
- GOLANG_VERSION: "1.18.x"
+ GOLANG_VERSION: "1.21.x"
 jobs:
  goreleaser:
   runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       go-version: ${{env.GOLANG_VERSION}}
 
    - name: Run Tests
-     run: go test ./... -v
+     run: make test
 
    - name: Run GoReleaser
      if: startsWith(github.ref, 'refs/tags/')
