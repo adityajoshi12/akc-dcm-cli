@@ -80,3 +80,19 @@ dcm certificate check -c=../data/peer/output/renew-peer-cert.pem
 ```shell script
 dcm certificate check -f=../data/peer/output
 ```
+
+#### c. Check Certificate Expiry for a Domain
+
+You can check the expiry date of a domain's TLS certificate using:
+
+```shell script
+dcm certificate check expire --domain example.com
+```
+
+You can also specify a custom port:
+
+```shell script
+dcm certificate check expire --domain example.com:8443
+```
+
+This will connect to the domain, retrieve its certificate, and print the expiry date and status.
