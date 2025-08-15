@@ -37,6 +37,13 @@ lint: generate
 test: generate
 	$(GO_CMD) test -cover ./...
 
+.PHONY: test-integration
+test-integration: generate
+	$(GO_CMD) test -v ./integration_test/ -cover -timeout 180s
+
+.PHONY: test-all
+test-all: test test-integration
+
 .PHONY: build
 build:
 	$(GO_CMD) build -o $(BIN_DIR)/dcm -ldflags "$(GO_LDFLAGS)" $(CMD_DIR)/dcm.go
