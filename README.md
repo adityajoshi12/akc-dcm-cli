@@ -8,7 +8,7 @@
 
 Or
 ```bash
-curl https://raw.githubusercontent.com/adityajoshi12/akc-dcm-cli/main/install.sh | bash
+curl https://raw.githubusercontent.com/adityajoshi12/akc-dcm-cli/main/install.sh | sudo bash
 ```
 ## II. Commands Reference.
 ```shell
