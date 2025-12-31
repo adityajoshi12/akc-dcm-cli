@@ -3,3 +3,5 @@
 dist/
 
 bin/
+
+integration_test/integration_test/**
