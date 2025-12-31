@@ -31,6 +31,9 @@ func NewInspectCommand() *cobra.Command {
 	flags := cmd.Flags()
 	flags.StringVarP(&c.CertPath, "cert", "c", "", "Path to your certificate")
 
+	// Add file path completion
+	_ = cmd.MarkFlagFilename("cert", "pem", "crt", "cer", "der")
+
 	return cmd
 }
 

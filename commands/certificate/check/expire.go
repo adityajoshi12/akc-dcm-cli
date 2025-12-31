@@ -41,6 +41,10 @@ func NewExpireCommand() *cobra.Command {
 	flags.StringVarP(&c.FolderPath, "folder-cert", "f", "", "Path to folder have certificates")
 	flags.StringVarP(&c.Domain, "domain", "d", "", "Domain to check certificate expiry (e.g. example.com or example.com:8443)")
 
+	// Add file path completion
+	_ = cmd.MarkFlagFilename("cert-path", "pem", "crt", "cer", "der")
+	_ = cmd.MarkFlagDirname("folder-cert")
+
 	return cmd
 }
 

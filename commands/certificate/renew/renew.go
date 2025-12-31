@@ -39,6 +39,13 @@ func NewReNewCertificateCommand() *cobra.Command {
 	flags.StringVarP(&c.OutputPath, "output", "o", ".dcm/output/renew-cert.pem", "Path to output file of new certificate")
 	flags.StringArrayVar(&c.CSRHosts, "csr", []string{}, "additional hosts")
 
+	// Add file path completion
+	_ = cmd.MarkFlagFilename("parent-cert", "pem", "crt", "cer")
+	_ = cmd.MarkFlagFilename("parent-private-key", "pem", "key")
+	_ = cmd.MarkFlagFilename("old-cert", "pem", "crt", "cer")
+	_ = cmd.MarkFlagFilename("old-private-key", "pem", "key")
+	_ = cmd.MarkFlagFilename("output")
+
 	return cmd
 }
 

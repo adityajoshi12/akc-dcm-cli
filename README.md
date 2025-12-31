@@ -10,6 +10,23 @@ Or
 ```bash
 curl https://raw.githubusercontent.com/adityajoshi12/akc-dcm-cli/main/install.sh | sudo bash
 ```
+
+## Shell Completions
+
+Enable auto-completion for commands, flags, and file paths in your shell.
+
+**Quick setup (macOS/Zsh):**
+```bash
+dcm completion zsh > $(brew --prefix)/share/zsh/site-functions/_dcm
+exec zsh
+```
+
+**Quick setup (Linux/Bash):**
+```bash
+dcm completion bash | sudo tee /etc/bash_completion.d/dcm > /dev/null
+source ~/.bashrc
+```
+
 ## II. Commands Reference.
 ```shell
 dcm [command]
@@ -17,6 +34,7 @@ dcm [command]
 Available Commands:<br />
 <pre>
   certificate   The command line interface for certificate management
+  completion    Generate shell completion scripts
   help          Help about any command
   version       Print dcm command version
 </pre>
