@@ -9,11 +9,11 @@ import (
 func TestAll(t *testing.T) {
 	cmds := commands.All()
 
-	if len(cmds) != 2 {
-		t.Fatalf("expected 2 commands, got %d", len(cmds))
+	if len(cmds) != 3 {
+		t.Fatalf("expected 3 commands, got %d", len(cmds))
 	}
 
-	expectedCommands := []string{"certificate", "version"}
+	expectedCommands := []string{"certificate", "version", "completion [bash|zsh|fish|powershell]"}
 	for i, cmd := range cmds {
 		if cmd.Use != expectedCommands[i] {
 			t.Errorf("expected command %d to be '%s', got '%s'", i, expectedCommands[i], cmd.Use)
