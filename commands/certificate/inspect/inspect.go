@@ -1,9 +1,9 @@
 package inspect
 
 import (
+	"fmt"
 	"github.com/adityajoshi12/akc-dcm-cli/commands/common"
 	"github.com/adityajoshi12/akc-dcm-cli/utilities"
-	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )

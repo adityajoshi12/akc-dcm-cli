@@ -5,8 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
-
-
 )
 
 const validCertificate = `-----BEGIN CERTIFICATE-----
@@ -114,22 +112,22 @@ func TestNewExpireCommand(t *testing.T) {
 	}
 }
 func TestCheckExpireDomain_ValidDomain(t *testing.T) {
-    err := checkExpireDomain("google.com:443")
-    if err != nil {
-        t.Errorf("Expected no error for valid domain, got: %v", err)
-    }
+	err := checkExpireDomain("google.com:443")
+	if err != nil {
+		t.Errorf("Expected no error for valid domain, got: %v", err)
+	}
 }
 
 func TestCheckExpireDomain_InvalidDomain(t *testing.T) {
-    err := checkExpireDomain("nonexistentdomainforsure12345.com:443")
-    if err == nil {
-        t.Errorf("Expected error for invalid domain, got nil")
-    }
+	err := checkExpireDomain("nonexistentdomainforsure12345.com:443")
+	if err == nil {
+		t.Errorf("Expected error for invalid domain, got nil")
+	}
 }
 
 func TestCheckExpireDomain_DefaultPort(t *testing.T) {
-    err := checkExpireDomain("google.com")
-    if err != nil {
-        t.Errorf("Expected no error for valid domain without port, got: %v", err)
-    }
+	err := checkExpireDomain("google.com")
+	if err != nil {
+		t.Errorf("Expected no error for valid domain without port, got: %v", err)
+	}
 }

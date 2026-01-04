@@ -6,9 +6,9 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/pem"
+	"github.com/adityajoshi12/akc-dcm-cli/utilities"
 	"strings"
 	"testing"
-	"github.com/adityajoshi12/akc-dcm-cli/utilities"
 )
 
 const testCertificate = `-----BEGIN CERTIFICATE-----
