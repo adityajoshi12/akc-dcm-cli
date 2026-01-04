@@ -21,6 +21,15 @@ jobs:
         with:
           go-version: ${{env.GOLANG_VERSION}}
 
+      - name: Check code format
+        run: |
+          go fmt ./...
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Code is not formatted. Please run 'go fmt ./...' and commit the changes."
+            git diff
+            exit 1
+          fi
+
       - name: Run Tests
         run: make test-all
 
