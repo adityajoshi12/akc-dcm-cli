@@ -16,6 +16,14 @@ import (
 	"software.sslmate.com/src/go-pkcs12"
 )
 
+const (
+	formatPEM   = "pem"
+	formatDER   = "der"
+	formatP12   = "p12"
+	pkcs12Alias = "pkcs12"
+	pfxAlias    = "pfx"
+)
+
 func NewConvertCertificateCommand() *cobra.Command {
 
 	c := ConvertCommand{}
@@ -80,11 +88,11 @@ func (c *ConvertCommand) Run() error {
 
 	var err error
 	switch c.fromFormat {
-	case "pem":
+	case formatPEM:
 		err = c.convertFromPEM()
-	case "der":
+	case formatDER:
 		err = c.convertFromDER()
-	case "p12":
+	case formatP12:
 		err = c.convertFromP12()
 	default:
 		return fmt.Errorf("unsupported source format: %s", c.fromFormat)
@@ -100,9 +108,9 @@ func (c *ConvertCommand) Run() error {
 
 func (c *ConvertCommand) convertFromPEM() error {
 	switch c.toFormat {
-	case "der":
+	case formatDER:
 		return c.pemToDER()
-	case "p12":
+	case formatP12:
 		return c.pemToP12()
 	}
 	return fmt.Errorf("unsupported conversion: pem → %s", c.toFormat)
@@ -110,9 +118,9 @@ func (c *ConvertCommand) convertFromPEM() error {
 
 func (c *ConvertCommand) convertFromDER() error {
 	switch c.toFormat {
-	case "pem":
+	case formatPEM:
 		return c.derToPEM()
-	case "p12":
+	case formatP12:
 		return c.derToP12()
 	}
 	return fmt.Errorf("unsupported conversion: der → %s", c.toFormat)
@@ -120,9 +128,9 @@ func (c *ConvertCommand) convertFromDER() error {
 
 func (c *ConvertCommand) convertFromP12() error {
 	switch c.toFormat {
-	case "pem":
+	case formatPEM:
 		return c.p12ToPEM()
-	case "der":
+	case formatDER:
 		return c.p12ToDER()
 	}
 	return fmt.Errorf("unsupported conversion: p12 → %s", c.toFormat)
@@ -387,11 +395,11 @@ func (c *ConvertCommand) Validate() error {
 
 	// Validate based on conversion type
 	switch c.fromFormat {
-	case "pem":
+	case formatPEM:
 		return c.validateFromPEM()
-	case "der":
+	case formatDER:
 		return c.validateFromDER()
-	case "p12", "pkcs12":
+	case formatP12, pkcs12Alias:
 		return c.validateFromP12()
 	}
 
@@ -404,13 +412,13 @@ func (c *ConvertCommand) validateFromPEM() error {
 	}
 
 	switch c.toFormat {
-	case "der":
+	case formatDER:
 		// PEM to DER: needs output file
 		if c.to == "" {
 			return errors.New("destination file (--to) is required for PEM to DER conversion")
 		}
 
-	case "p12", "pkcs12":
+	case formatP12, pkcs12Alias:
 		// PEM to P12: needs private key, output file, and password
 		if c.key == "" {
 			return errors.New("private key file (--key) is required for PEM to PKCS#12 conversion")
@@ -425,7 +433,7 @@ func (c *ConvertCommand) validateFromPEM() error {
 			return errors.New("password (--password) is required for PKCS#12 conversion")
 		}
 
-	case "pem":
+	case formatPEM:
 		return errors.New("source and destination formats are the same (pem)")
 	}
 
@@ -438,13 +446,13 @@ func (c *ConvertCommand) validateFromDER() error {
 	}
 
 	switch c.toFormat {
-	case "pem":
+	case formatPEM:
 		// DER to PEM: needs output file
 		if c.to == "" {
 			return errors.New("destination file (--to) is required for DER to PEM conversion")
 		}
 
-	case "p12", "pkcs12":
+	case formatP12, pkcs12Alias:
 		// DER to P12: needs private key, output file, and password
 		if c.key == "" {
 			return errors.New("private key file (--key) is required for DER to PKCS#12 conversion")
@@ -459,7 +467,7 @@ func (c *ConvertCommand) validateFromDER() error {
 			return errors.New("password (--password) is required for PKCS#12 conversion")
 		}
 
-	case "der":
+	case formatDER:
 		return errors.New("source and destination formats are the same (der)")
 	}
 
@@ -477,7 +485,7 @@ func (c *ConvertCommand) validateFromP12() error {
 	}
 
 	switch c.toFormat {
-	case "pem":
+	case formatPEM:
 		// P12 to PEM: needs cert-out and key-out OR single output file
 		if c.certOut == "" && c.keyOut == "" && c.to == "" {
 			return errors.New("specify either --to (for combined output) or --cert-out and --key-out (for separate files)")
@@ -487,13 +495,13 @@ func (c *ConvertCommand) validateFromP12() error {
 			return errors.New("both --cert-out and --key-out must be specified for separate file extraction")
 		}
 
-	case "der":
+	case formatDER:
 		// P12 to DER: needs output file
 		if c.to == "" && c.certOut == "" {
 			return errors.New("destination file (--to or --cert-out) is required for PKCS#12 to DER conversion")
 		}
 
-	case "p12", "pkcs12":
+	case formatP12, pkcs12Alias:
 		return errors.New("source and destination formats are the same (p12)")
 	}
 
@@ -509,7 +517,7 @@ func detectFormat(filePath string) (string, error) {
 
 	// Check for PEM format (starts with -----BEGIN)
 	if bytes.Contains(data, []byte("-----BEGIN")) {
-		return "pem", nil
+		return formatPEM, nil
 	}
 
 	// Check for PKCS#12 signature (starts with 0x30 0x82 or 0x30 0x80 for ASN.1 SEQUENCE)
@@ -521,7 +529,7 @@ func detectFormat(filePath string) (string, error) {
 		if err != nil && (err.Error() == "pkcs12: expected exactly two items in the authenticated safe" ||
 			bytes.Contains([]byte(err.Error()), []byte("pkcs12")) ||
 			bytes.Contains([]byte(err.Error()), []byte("MAC verification failed"))) {
-			return "p12", nil
+			return formatP12, nil
 		}
 	}
 
@@ -537,8 +545,8 @@ func detectFormat(filePath string) (string, error) {
 // normalizeFormat converts format aliases to standard names
 func normalizeFormat(format string) string {
 	switch format {
-	case "pkcs12", "pfx":
-		return "p12"
+	case pkcs12Alias, pfxAlias:
+		return formatP12
 	default:
 		return format
 	}
